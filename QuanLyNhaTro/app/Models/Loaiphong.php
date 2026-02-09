@@ -11,9 +11,10 @@ class Loaiphong extends Model
     //khai bao ten bang
     protected $table = 'loaiphong';
     //khai bao khoa chinh
-    protected $primarykey = 'Ma_loai_phong';
+    protected $primaryKey = 'Ma_loai_phong';
+    public $incrementing = true;
     //khai bao cot duoc phep gan gia tri
-    protected $fillable = [ 
+    protected $fillable = [
         'Ten_loai_phong',
         'Don_gia',
         'Mo_ta'

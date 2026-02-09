@@ -5,7 +5,7 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="m-0">Danh sách loại phòng</h5>
-            <a href="{{ route('loaiphong.create') }}" class = "btn btn-primary btn-sm">
+            <a href="{{ route('loaiphong.create') }}" class = "btn btn-primary">
                 <i class="fa fa-plus"></i> Thêm loại phòng mới
             </a>
         </div>
@@ -33,8 +33,9 @@
                             <td class="text-success">{{ number_format($item->Don_gia) }}đ</td>
                             <td>{{ $item->Mo_ta }}</td>
                             <td>
-                                <a href="#" class="btn btn-warning btn-sm">Sửa</a>
-                                <a href="#" class="btn btn-danger btn-sm">Xóa</a>
+                                <a href="{{ route('loaiphong.edit', $item->Ma_loai_phong) }}" class="btn btn-warning btn-sm">Sửa</a>
+                                <a href="{{ route('loaiphong.destroy', $item->Ma_loai_phong) }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Bạn có chắc chắn muốn xóa loại phòng này không?');">Xóa</a>
                             </td>
                         </tr>
                     @endforeach
