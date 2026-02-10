@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\KhachhangController;
 use App\Http\Controllers\LoaiphongController;
 use App\Http\Controllers\PhongController;
+use App\Models\Khachhang;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,5 +23,16 @@ Route::prefix('phong')->group(function (){
     Route::get('/', [PhongController::class, 'index'])->name('phong.index');//danh sách phòng
     Route::get('/them-moi', [PhongController::class, 'create'])->name('phong.create'); // thêm mới phòng
     Route::post('/luu', [PhongController::class, 'store'])->name('phong.store'); // lưu phòng
+    Route::get('/sua/{id}', [PhongController::class, 'edit'])->name('phong.edit'); // sửa phòng
+    Route::post('/cap-nhat/{id}', [PhongController::class, 'update'])->name('phong.update'); // cập nhật phòng
     Route::get('/xoa/{id}', [PhongController::class, 'destroy'])->name('phong.destroy'); // xóa phòng
+});
+//nhóm các route liên quan đến khách hàng
+Route::prefix('khach_hang')->group(function (){
+    Route::get('/', [KhachhangController::class, 'index'])->name('khachhang.index');//danh sách khách hàng
+    Route::get('/them-moi', [KhachhangController::class, 'create'])->name('khachhang.create');// thêm mới khách hàng
+    Route::post('/luu', [KhachhangController::class, 'store'])->name('khachhang.store');// lưu khách hàng
+    Route::get('/sua/{id}', [KhachhangController::class, 'edit'])->name('khachhang.edit');// sửa khách hàng
+    Route::post('/cap-nhat/{id}', [KhachhangController::class, 'update'])->name('khachhang.update');// cập nhật khách hàng
+    Route::get('/xoa/{id}', [KhachhangController::class, 'destroy'])->name('khachhang.destroy');// xóa khách hàng
 });

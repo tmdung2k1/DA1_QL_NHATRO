@@ -37,7 +37,7 @@
                             @endif
                         </td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-warning">Sửa</a>
+                            <a href="{{ route('phong.edit', $item->Ma_phong) }}" class="btn btn-sm btn-warning">Sửa</a>
                             <a href="{{ route('phong.destroy', $item->Ma_phong) }}"
                                 class="btn btn-sm btn-danger"
                                 onclick="return confirm('Xóa phòng này?')">Xóa</a>
