@@ -19,4 +19,9 @@ class Loaiphong extends Model
         'Don_gia',
         'Mo_ta'
     ];
+    //khoa ngoai
+    public function phongs()
+    {
+        return $this->hasMany(Phong::class, 'Ma_loai_phong', 'Ma_loai_phong'); //hasMany dung de khai bao quan he 1-n
+    }
 }
