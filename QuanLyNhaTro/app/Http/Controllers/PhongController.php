@@ -14,7 +14,8 @@ class PhongController extends Controller
         //lay danh sach phong va thong tin loai phong
         $ds_phong = Phong::with('loaiphong')
             ->orderBy('Ma_phong', 'asc')->get();
-        return view('phong.index', compact('ds_phong'));
+        $ds_loaiphong = Loaiphong::all();
+        return view('phong.index', compact('ds_phong', 'ds_loaiphong'));
     }
     //them form moi
     public function create()

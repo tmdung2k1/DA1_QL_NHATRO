@@ -33,8 +33,13 @@
                             <td class="text-success">{{ number_format($item->Don_gia) }}đ</td>
                             <td>{{ $item->Mo_ta }}</td>
                             <td>
-                                <a href="{{ route('loaiphong.edit', $item->Ma_loai_phong) }}" class="btn btn-warning btn-sm">Sửa</a>
-                                <a href="{{ route('loaiphong.destroy', $item->Ma_loai_phong) }}" class="btn btn-danger btn-sm"
+                                <button type="button" class="btn btn-warning btn-sm btn-edit-loaiphong"
+                                    data-id="{{ $item->Ma_loai_phong }}" data-ten="{{ $item->Ten_loai_phong }}"
+                                    data-dongia="{{ $item->Don_gia }}" data-mota="{{ $item->Mo_ta }}">
+                                    Sửa
+                                </button>
+                                <a href="{{ route('loaiphong.destroy', $item->Ma_loai_phong) }}"
+                                    class="btn btn-danger btn-sm"
                                     onclick="return confirm('Bạn có chắc chắn muốn xóa loại phòng này không?');">Xóa</a>
                             </td>
                         </tr>
@@ -43,4 +48,43 @@
             </table>
         </div>
     </div>
+
+    {{-- Modal Sửa Loại Phòng --}}
+    <div class="modal fade" id="editLoaiPhongModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cập Nhật Loại Phòng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditLoaiPhong" method="POST" data-update-url="{{ route('loaiphong.update', ':id') }}">
+                        @csrf
+                        <div class="mb-3">
+                            <label>Tên loại phòng</label>
+                            <input type="text" name="Ten_loai_phong" id="edit_Ten_loai_phong" class="form-control"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Đơn giá (VNĐ)</label>
+                            <input type="number" name="Don_gia" id="edit_Don_gia" class="form-control" min="0"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Mô tả</label>
+                            <textarea name="Mo_ta" id="edit_Mo_ta" class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="text-end">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-warning">Lưu thay đổi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+
+@push('js')
+    <script src="{{ asset('js/loaiphong.js') }}"></script>
+@endpush

@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Chitiethoadon extends Model
 {
-    Use HasFactory;
+    use HasFactory;
     protected $table = 'chitiethoadon';
-    protected $primarykey = 'Ma_cthd';
+    protected $primaryKey = 'Ma_cthd';
     protected $fillable = [
         'Ma_hoa_don',
         'Ma_dich_vu',

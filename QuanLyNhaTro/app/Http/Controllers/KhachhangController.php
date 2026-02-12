@@ -25,13 +25,13 @@ class KhachhangController extends Controller
         $request->validate([
             'Ho_ten' => 'required|max:50',
             //kiểm tra cccd không được trùng
-            'Cccd' => 'required|numeric|unique:KHACHHANG,Cccd',
+            'Cccd' => 'required|digits:12|unique:KHACHHANG,Cccd',
             'Sdt' => 'required|numeric',
             'Que_quan' => 'required'
         ], [
             'Cccd.unique' => 'CCCD đã tồn tại trong hệ thống!',
-            'Cccd.numeric' => 'CCCD phải là số!',
-            'Sdt.numeric' => 'Số điện thoại phải là số!',
+            'Cccd.digits' => 'CCCD phải gồm đúng 12 chữ số!',
+            'Sdt.digits' => 'Số điện thoại phải gồm đúng 10 chữ số!',
         ]);
         Khachhang::create([
             'Ho_ten' => $request->Ho_ten,
@@ -49,32 +49,28 @@ class KhachhangController extends Controller
     public function edit($id)
     {
         //lấy thông tin khách hàng cần sửa
-        $khachhang = Khachhang::find($id);
-        if (!$khachhang) return abort(404);
-        return view('khach_hang.edit', compact('khachhang'));
+        $khach = Khachhang::where('Ma_khach', $id)->first();
+        return view('khach_hang.edit', compact('khach'));
     }
     //cập nhật khách hàng
     public function update(Request $request, $id)
     {
         $request->validate([
             'Ho_ten' => 'required|max:50',
-            'Cccd' => 'required|numeric',
-            'Sdt' => 'required|numeric',
+            //kiểm tra cccd không được trùng, ngoại trừ chính khách hàng đang sửa
+            'Cccd' => 'required|digits:12|unique:KHACHHANG,Cccd,' . $id . ',Ma_khach',
+            'Sdt' => 'required|digits:10',
             'Que_quan' => 'required'
-        ], [
-            'Cccd.numeric' => 'CCCD phải là số!',
-            'Sdt.numeric' => 'Số điện thoại phải là số!',
         ]);
         //tìm và cập nhật khách hàng
-        $khachhang = Khachhang::find($id);
-        $khachhang->update([
+        $khach = Khachhang::where('Ma_khach', $id)->first();
+        $khach->update([
             'Ho_ten' => $request->Ho_ten,
             'Cccd' => $request->Cccd,
             'Sdt' => $request->Sdt,
             'Que_quan' => $request->Que_quan,
             'Email' => $request->Email,
             'Ngay_vao' => $request->Ngay_vao,
-            'Trang_thai' => $request->Trang_thai
         ]);
         //chuyển hướng về trang danh sách khách hàng với thông báo
         return redirect()->route('khachhang.index')

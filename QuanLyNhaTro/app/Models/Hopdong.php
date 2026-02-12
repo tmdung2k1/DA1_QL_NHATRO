@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Hopdong extends Model
 {
-    Use HasFactory;
+    use HasFactory;
     protected $table = 'hopdong';
-    protected $primarykey = 'Ma_hop_dong';
+    protected $primaryKey = 'Ma_hop_dong';
     protected $fillable = [
         'Ma_phong',
         'Ma_khach',

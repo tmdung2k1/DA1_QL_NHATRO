@@ -9,7 +9,7 @@ class Khachhang extends Model
 {
     use HasFactory;
     protected $table = 'khachhang';
-    protected $primarykey = 'Ma_khach';
+    protected $primaryKey = 'Ma_khach';
     protected $fillable = [
         'Ho_ten',
         'Cccd',

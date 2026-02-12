@@ -22,12 +22,15 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label>Số CCCD<span class="text-danger">*</span></label>
-                        <input type="number" name="Cccd" class="form-control" required>
+                        <input type="tel" name="Cccd" class="form-control" pattern="[0-9]{12}" minlength="12"
+                            maxlength="12" title="Số CCCD phải gồm 12 chữ số" required>
                         <small class="text-muted">số cccd không được trùng với người khác</small>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label>Số điện thoại<span class="text-danger">*</span></label>
-                        <input type="number" name = "Sdt" class="form-control" required>
+                        <input type="tel" name="Sdt" class="form-control" pattern="[0-9]{10}" minlength="10"
+                            maxlength="10" title="Số điện thoại phải gồm đúng 10 chữ số" required>
+                        <small class="text-muted">Số điện thoại phải gồm 10 chữ số, không nhập chữ</small>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label>Email</label>
