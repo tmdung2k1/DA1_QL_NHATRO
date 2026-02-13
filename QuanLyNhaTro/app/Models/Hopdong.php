@@ -19,4 +19,12 @@ class Hopdong extends Model
         'Gia_phong_thuc_te',
         'Trang_thai'
     ];
+    public function phong()
+    {
+        return $this->belongsTo(Phong::class, 'Ma_phong', 'Ma_phong');
+    }
+    public function khach()
+    {
+        return $this->belongsTo(Khachhang::class, 'Ma_khach', 'Ma_khach');
+    }
 }

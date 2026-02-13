@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HopdongController;
 use App\Http\Controllers\KhachhangController;
 use App\Http\Controllers\LoaiphongController;
 use App\Http\Controllers\PhongController;
@@ -35,4 +36,10 @@ Route::prefix('khach_hang')->group(function (){
     Route::get('/sua/{id}', [KhachhangController::class, 'edit'])->name('khachhang.edit');// sửa khách hàng
     Route::post('/cap-nhat/{id}', [KhachhangController::class, 'update'])->name('khachhang.update');// cập nhật khách hàng
     Route::get('/xoa/{id}', [KhachhangController::class, 'destroy'])->name('khachhang.destroy');// xóa khách hàng
+});
+//nhóm các route liên quan đến hợp đồng
+Route::prefix('hop-dong')->group(function (){
+    Route::get('/', [HopdongController::class, 'index'])->name('hopdong.index'); //danh sách hợp đồng
+    Route::post('/luu', [HopdongController::class, 'store'])->name('hopdong.store'); // lưu hợp đồng
+    Route::get('/them-moi', [HopdongController::class, 'create'])->name('hopdong.create'); // thêm mới hợp đồng
 });
