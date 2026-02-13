@@ -13,7 +13,7 @@
             @endif
             <table class="table table-bordered table-hover">
                 <thead class="table-primary">
-                    <tr>
+                    <tr class="text-center">
                         <th>Họ tên</th>
                         <th>CCCD</th>
                         <th>SĐT</th>
@@ -25,7 +25,7 @@
                 </thead>
                 <tbody>
                     @foreach ($ds_khach as $k)
-                        <tr>
+                        <tr class="text-center">
                             <td class="fw-bold">{{ $k->Ho_ten }}</td>
                             <td>{{ $k->Cccd }}</td>
                             <td>{{ $k->Sdt }}</td>

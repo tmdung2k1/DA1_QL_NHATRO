@@ -13,11 +13,12 @@
             @endif
             <table class="table table-bordered table-hover">
                 <thead class="table-success">
-                    <tr>
+                    <tr class="text-center">
                         <th>Mã HĐ</th>
                         <th>Phòng</th>
                         <th>Khách thuê</th>
                         <th>Ngày bắt đầu</th>
+                        <th>Điện/Nước đầu</th>
                         <th>Giá thuê</th>
                         <th>Trạng thái</th>
                         <th>Thao tác</th>
@@ -25,11 +26,15 @@
                 </thead>
                 <tbody>
                     @foreach ($ds_hopdong as $hd)
-                        <tr>
+                        <tr class="text-center">
                             <td>{{ $hd->Ma_hop_dong }}</td>
                             <td class="fw-bold text-primary">{{ $hd->phong->Ten_phong ?? 'N/A' }}</td>
-                            <td>{{ $hd->khachhang->Ho_ten ?? 'N/A' }}</td>
+                            <td>{{ $hd->khach->Ho_ten ?? 'N/A' }}</td>
                             <td>{{ date('d-m-Y', strtotime($hd->Ngay_bat_dau)) }}</td>
+                            <td>
+                                ⚡ {{ $hd->Chi_so_dien_dau }} <br>
+                                💧 {{ $hd->Chi_so_nuoc_dau }}
+                            </td>
                             <td class="text-end">{{ number_format($hd->Gia_phong_thuc_te) }}đ</td>
                             <td>
                                 @if ($hd->Trang_thai == 1)
@@ -39,7 +44,18 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="#" class="btn btn-info btn-sm">Xem chi tiết</a>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="#" class="btn btn-outline-info btn-sm">
+                                        <i class="bi bi-eye"></i> Chi tiết
+                                    </a>
+                                    @if ($hd->Trang_thai == 1)
+                                        <a href="{{ route('hopdong.terminate', $hd->Ma_hop_dong) }}"
+                                            class="btn btn-outline-danger btn-sm"
+                                            onclick="return confirm('Bạn có chắc muốn thanh lý hợp đồng này?\nPhòng sẽ được chuyển về trạng thái TRỐNG.');">
+                                            <i class="bi bi-x-circle"></i> Thanh lý
+                                        </a>
+                                    @endif
+                                </div>
                             </td>
                         </tr>
                     @endforeach

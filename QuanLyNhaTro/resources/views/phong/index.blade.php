@@ -13,7 +13,7 @@
             @endif
             <table class="table table-bordered table-striped">
                 <thead class="table-dark">
-                    <tr>
+                    <tr class="text-center">
                         <th>Tên Phòng</th>
                         <th>Loại Phòng</th>
                         <th>Giá Cơ Bản</th>
@@ -23,7 +23,7 @@
                 </thead>
                 <tbody>
                     @foreach ($ds_phong as $item)
-                        <tr>
+                        <tr class="text-center">
                             <td class="fw-bold text-primary">{{ $item->Ten_phong }}</td>
                             <td>{{ $item->loaiphong->Ten_loai_phong ?? 'Chưa phân loại' }}</td>
                             <td>{{ number_format($item->loaiphong->Don_gia ?? 0) }}đ</td>

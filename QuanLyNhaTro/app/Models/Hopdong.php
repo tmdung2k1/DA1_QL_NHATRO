@@ -17,6 +17,8 @@ class Hopdong extends Model
         'Ngay_ket_thuc',
         'Tien_coc',
         'Gia_phong_thuc_te',
+        'Chi_so_dien_dau',
+        'Chi_so_nuoc_dau',
         'Trang_thai'
     ];
     public function phong()

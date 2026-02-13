@@ -17,7 +17,7 @@
             @endif
             <table class="table table-bordered table-hover">
                 <thead class="table-light">
-                    <tr>
+                    <tr class="text-center">
                         <th>Mã loại phòng</th>
                         <th>Tên loại phòng</th>
                         <th>Đơn giá (VNĐ)</th>
@@ -27,7 +27,7 @@
                 </thead>
                 <tbody>
                     @foreach ($ds_loaiphong as $item)
-                        <tr>
+                        <tr class="text-center">
                             <td>{{ $item->Ma_loai_phong }}</td>
                             <td class="fw-bold">{{ $item->Ten_loai_phong }}</td>
                             <td class="text-success">{{ number_format($item->Don_gia) }}đ</td>

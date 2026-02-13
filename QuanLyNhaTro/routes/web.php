@@ -38,8 +38,9 @@ Route::prefix('khach_hang')->group(function (){
     Route::get('/xoa/{id}', [KhachhangController::class, 'destroy'])->name('khachhang.destroy');// xóa khách hàng
 });
 //nhóm các route liên quan đến hợp đồng
-Route::prefix('hop-dong')->group(function (){
+Route::prefix('hop_dong')->group(function (){
     Route::get('/', [HopdongController::class, 'index'])->name('hopdong.index'); //danh sách hợp đồng
     Route::post('/luu', [HopdongController::class, 'store'])->name('hopdong.store'); // lưu hợp đồng
     Route::get('/them-moi', [HopdongController::class, 'create'])->name('hopdong.create'); // thêm mới hợp đồng
+    Route::get('/thanh-ly/{id}', [HopdongController::class, 'terminate'])->name('hopdong.terminate');
 });
