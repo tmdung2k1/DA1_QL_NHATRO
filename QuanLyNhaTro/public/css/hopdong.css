@@ -1,0 +1,76 @@
+/* Ẩn tiêu đề in khi xem bình thường */
+.print-title {
+    display: none;
+}
+
+/* Ẩn phần chữ ký khi xem bình thường */
+.print-footer {
+    display: none;
+}
+
+@media print {
+    @page {
+        margin: 0;
+    }
+
+    /* Thêm padding cho body để bù lại margin 0 */
+    body {
+        padding: 15mm !important;
+    }
+
+    /* Hiện tiêu đề hợp đồng khi in */
+    .print-title {
+        display: block !important;
+        margin-bottom: 15px;
+    }
+
+    /* Hiện phần chữ ký khi in */
+    .print-footer {
+        display: block !important;
+        page-break-inside: avoid;
+        /* tránh bị cắt chữ ký ra 2 trang */
+        break-inside: avoid;
+    }
+
+    /* Ẩn trạng thái khi in */
+    .trang-thai-box {
+        display: none !important;
+    }
+
+    /* Ẩn sidebar menu */
+    .d-flex.flex-column.flex-shrink-0 {
+        display: none !important;
+    }
+
+    /* Nội dung chiếm toàn bộ trang */
+    .main-content {
+        margin-left: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Ẩn tiêu đề trang và đường kẻ */
+    .main-content>.d-flex.border-bottom {
+        display: none !important;
+    }
+
+    /* Ẩn nút quay lại */
+    .card-header {
+        display: none !important;
+    }
+
+    /* Ẩn các nút hành động */
+    .no-print {
+        display: none !important;
+    }
+
+    /* Bỏ shadow và border cho gọn */
+    .card {
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    /* Xóa đường gạch dọc giữa 2 cột */
+    .border-end {
+        border-right: none !important;
+    }
+}

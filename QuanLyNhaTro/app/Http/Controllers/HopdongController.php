@@ -78,4 +78,15 @@ class HopdongController extends Controller
         return redirect()->route('hopdong.index')
             ->with('thongbao', 'Hợp đồng đã được thanh lý thành công.Phòng đã trống!');
     }
+    //Xem chi tiết hợp đồng
+    public function show($id)
+    {
+        //lấy thông tin hợp đồng kèm theo thông tin phòng và khách hàng
+        $hopdong = Hopdong::with(['phong', 'khach'])->find($id);
+        if(!$hopdong){
+            return redirect()->route('hopdong.index')
+            ->with('error', 'Không tìm thấy hợp đồng!');
+        }
+        return view('hopdong.show', compact('hopdong'));
+    }
 }

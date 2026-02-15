@@ -45,8 +45,8 @@
                             </td>
                             <td>
                                 <div class="d-flex gap-2 justify-content-center">
-                                    <a href="#" class="btn btn-outline-info btn-sm">
-                                        <i class="bi bi-eye"></i> Chi tiết
+                                    <a href="{{ route('hopdong.show', $hd->Ma_hop_dong) }}" class="btn btn-outline-info btn-sm">
+                                        <i class="bi bi-eye"></i> Xem chi tiết
                                     </a>
                                     @if ($hd->Trang_thai == 1)
                                         <a href="{{ route('hopdong.terminate', $hd->Ma_hop_dong) }}"
