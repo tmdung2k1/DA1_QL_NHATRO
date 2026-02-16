@@ -17,7 +17,7 @@ class HopdongController extends Controller
             ->get();
 
         // Lấy danh sách Phòng TRỐNG để cho vào Dropdown tạo hợp đồng mới
-        return view('hopdong.index', compact('ds_hopdong'));
+        return view('hop_dong.index', compact('ds_hopdong'));
     }
     public function create()
     {
@@ -26,7 +26,7 @@ class HopdongController extends Controller
         // Lấy danh sách Khách hàng
         $ds_khach = Khachhang::all();
 
-        return view('hopdong.create', compact('phong_trong', 'ds_khach'));
+        return view('hop_dong.create', compact('phong_trong', 'ds_khach'));
     }
     // Lưu hợp đồng mới
     public function store(Request $request)
@@ -83,10 +83,10 @@ class HopdongController extends Controller
     {
         //lấy thông tin hợp đồng kèm theo thông tin phòng và khách hàng
         $hopdong = Hopdong::with(['phong', 'khach'])->find($id);
-        if(!$hopdong){
+        if (!$hopdong) {
             return redirect()->route('hopdong.index')
-            ->with('error', 'Không tìm thấy hợp đồng!');
+                ->with('error', 'Không tìm thấy hợp đồng!');
         }
-        return view('hopdong.show', compact('hopdong'));
+        return view('hop_dong.show', compact('hopdong'));
     }
 }

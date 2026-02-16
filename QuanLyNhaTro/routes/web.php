@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HoadonController;
 use App\Http\Controllers\HopdongController;
 use App\Http\Controllers\KhachhangController;
 use App\Http\Controllers\LoaiphongController;
@@ -44,4 +45,14 @@ Route::prefix('hop_dong')->group(function (){
     Route::get('/them-moi', [HopdongController::class, 'create'])->name('hopdong.create'); // thêm mới hợp đồng
     Route::get('/thanh-ly/{id}', [HopdongController::class, 'terminate'])->name('hopdong.terminate');// thanh lý hợp đồng
     Route::get('/chi-tiet/{id}', [HopdongController::class, 'show'])->name('hopdong.show');// chi tiết hợp đồng
+});
+//nhóm các route liên quan đến hóa đơn
+route::prefix('hoa_don')->group(function () {
+    Route::get('/', [HoadonController::class, 'index'])->name('hoadon.index'); //danh sách hóa đơn
+    route::get('/lap-moi', [HoadonController::class, 'create'])->name('hoadon.create'); // tạo mới hóa đơn
+    Route::post('/luu', [HoadonController::class, 'store'])->name('hoadon.store'); // lưu hóa đơn
+
+    //route ajax lấy chỉ số cũ
+    Route::get('/lay-chi-so/{id}', [HoadonController::class, 'layChiSoCu']);
+    Route::get('/thanh-toan/{id}', [HoadonController::class, 'thanhtoan'])->name('hoadon.thanhtoan'); // thanh toán hóa đơn
 });
