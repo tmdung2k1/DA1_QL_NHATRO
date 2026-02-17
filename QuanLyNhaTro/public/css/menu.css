@@ -1,0 +1,66 @@
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    position: fixed;
+    background: #ffffff;
+    border-right: 1px solid #e9ecef;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.04);
+    z-index: 100;
+}
+
+.sidebar .nav-link {
+    color: #495057;
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin-bottom: 4px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.sidebar .nav-link.active {
+    background: linear-gradient(135deg, #43a047, #2e7d32);
+    color: #fff !important;
+    box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
+}
+
+.sidebar .brand-title {
+    color: #2e7d32;
+    font-weight: 700;
+}
+
+.sidebar hr {
+    border-color: #e9ecef;
+    opacity: 0.6;
+}
+
+.sidebar .dropdown-toggle {
+    color: #495057;
+}
+
+.sidebar .dropdown-toggle:hover {
+    color: #2e7d32;
+}
+
+/* Layout chung */
+body {
+    background-color: #f8f9fa;
+}
+
+.main-content {
+    margin-left: 280px;
+    padding: 20px;
+}
+
+.navbar-top {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+}
+
+.navbar-top h1 {
+    color: #2e7d32;
+}

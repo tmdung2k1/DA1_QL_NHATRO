@@ -8,27 +8,19 @@
     <title>@yield('tieude') - Quản Lý Nhà Trọ</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    @stack('css') 
+    <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
+    @stack('css')
     {{-- nếu có css riêng cho từng trang thì thêm vào đây --}}
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-
-        /* Đẩy nội dung sang phải để tránh menu che mất */
-        .main-content {
-            margin-left: 280px;
-            padding: 20px;
-        }
-    </style>
 </head>
 
 <body>
     @include('layout.menu')
     <div class="main-content">
-        <div
-            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">@yield('tieude')</h1>
+        <div class="navbar-top d-flex justify-content-between align-items-center px-4 py-3 mb-3 shadow-sm rounded-3">
+            <h1 class="h2 mb-0 fw-bold">@yield('tieude')</h1>
+            <div class="d-flex align-items-center gap-3">
+                <span class="text-muted small"><i class="bi bi-clock me-1"></i>{{ date('d/m/Y') }}</span>
+            </div>
         </div>
         @yield('noidung')
     </div>

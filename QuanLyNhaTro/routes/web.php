@@ -5,6 +5,7 @@ use App\Http\Controllers\HopdongController;
 use App\Http\Controllers\KhachhangController;
 use App\Http\Controllers\LoaiphongController;
 use App\Http\Controllers\PhongController;
+use App\Http\Controllers\ThongkeController;
 use App\Models\Khachhang;
 use Illuminate\Support\Facades\Route;
 
@@ -56,3 +57,6 @@ Route::prefix('hoa_don')->group(function () {
     Route::get('/lay-chi-so/{id}', [HoadonController::class, 'layChiSoCu']);
     Route::get('/thanh-toan/{id}', [HoadonController::class, 'thanhtoan'])->name('hoadon.thanhtoan'); // thanh toán hóa đơn
 });
+
+//Route Trang chủ
+Route::get('/', [ThongkeController::class, 'index'])->name('trangchu');

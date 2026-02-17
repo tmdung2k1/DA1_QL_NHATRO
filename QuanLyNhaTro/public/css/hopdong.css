@@ -10,7 +10,7 @@
 
 @media print {
     @page {
-        margin: 0;
+        margin: 0; 
     }
 
     /* Thêm padding cho body để bù lại margin 0 */
