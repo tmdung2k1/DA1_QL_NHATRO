@@ -64,6 +64,11 @@
                                         onclick="return confirm('Xác nhận khách đã đóng đủ {{ number_format($hd->Tong_tien) }} VNĐ?');">
                                         <i class="bi bi-currency-dollar"></i> Thu Tiền
                                     </a>
+                                    <a href="{{ route('hoadon.destroy', $hd->Ma_hoa_don) }}"
+                                        class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Bạn chắc chắn muốn xóa hóa đơn này?');">
+                                        <i class="bi bi-trash"></i> Xóa
+                                    </a>
                                 @else
                                     <button class="btn btn-secondary btn-sm" disabled>✅ Đã thu</button>
                                 @endif

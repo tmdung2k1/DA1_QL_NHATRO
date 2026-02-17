@@ -98,4 +98,22 @@ class HoadonController extends Controller
         return redirect()->back()
             ->with('error', 'Không tìm thấy hóa đơn cần thanh toán!');
     }
+    //xóa hóa đơn(Chỉ cho phép xóa khi chưa thanh toán )
+    public function destroy($id)
+    {
+        $hoadon = Hoadon::find($id);
+        if (!$hoadon) {
+            return redirect()->back()
+                ->with('error', 'Hóa đơn không tồn tại!');
+        }
+        //Chỉ cho phép xóa khi hóa đơn chưa thanh toán
+        if ($hoadon->Trang_thai == 1) {
+            return redirect()->back()
+                ->with('error', 'Hóa đơn này ĐÃ THU TIỀN, không thể xóa! Hãy giữ lại để thống kê doanh thu.');
+        }
+        //nếu chưa thanh toán thì mới cho xóa
+        $hoadon->delete();
+        return redirect()->route('hoadon.index')
+        ->with('thongbao', 'Xóa hóa đơn thành công!');
+    }
 }
