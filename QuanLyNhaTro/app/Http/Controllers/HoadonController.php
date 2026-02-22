@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cauhinh;
 use App\Models\Hoadon;
 use App\Models\Hopdong;
 use Illuminate\Http\Request;
@@ -49,9 +50,10 @@ class HoadonController extends Controller
     //lưu hóa đơn mới
     public function store(Request $request)
     {
-        //lấy giá diện, nước cố định
-        $GIA_DIEN = 4000;
-        $GIA_NUOC = 12000;
+        //lấy giá điện nước từ cấu hình
+        $cauhinh = Cauhinh::first();
+        $GIA_DIEN = $cauhinh->gia_dien;
+        $GIA_NUOC = $cauhinh->gia_nuoc;
 
         $dien_tieu_thu = $request->Chi_so_dien_moi - $request->Chi_so_dien_cu;
         $nuoc_tieu_thu = $request->Chi_so_nuoc_moi - $request->Chi_so_nuoc_cu;
@@ -86,12 +88,9 @@ class HoadonController extends Controller
     //thanh toán hóa đơn
     public function thanhtoan($id)
     {
-        //Tìm hóa đơn cần thanh toán
-        $hoadon = Hoadon::find($id);
-        if ($hoadon) {
-            //Cập nhật trạng thái thành 1 (Đã thanh toán)
-            $hoadon->Trang_thai = 1;
-            $hoadon->save();
+        //Cập nhật trạng thái thành 1 (Đã thanh toán) bằng query trực tiếp
+        $rows = Hoadon::where('Ma_hoa_don', $id)->update(['Trang_thai' => 1]);
+        if ($rows > 0) {
             return redirect()->route('hoadon.index')
                 ->with('thongbao', 'Thanh toán hóa đơn thành công!');
         }
@@ -114,6 +113,21 @@ class HoadonController extends Controller
         //nếu chưa thanh toán thì mới cho xóa
         $hoadon->delete();
         return redirect()->route('hoadon.index')
-        ->with('thongbao', 'Xóa hóa đơn thành công!');
+            ->with('thongbao', 'Xóa hóa đơn thành công!');
+    }
+
+    //in hóa đơn
+    public function print($id)
+    {
+        //lấy thông tin hóa đơn kèm hợp đồng, phòng, khách
+        $hoadon = Hoadon::with(['hopdong.phong', 'hopdong.khachhang'])->find($id);
+        if (!$hoadon) {
+            return redirect()->back()
+                ->with('error', 'Hóa đơn không tồn tại!');
+        }
+        //lấy thông tin cấu hình để in tên nhà trọ và giá điện nước
+        $cauhinh = \App\Models\Cauhinh::first();
+        //Trả về view in hóa đơn
+        return view('hoa_don.print', compact('hoadon', 'cauhinh'));
     }
 }

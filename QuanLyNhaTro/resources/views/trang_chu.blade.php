@@ -1,12 +1,12 @@
 @extends('layout.master')
-@section('tieude', 'Dashboard')
+@section('tieude', 'Trang Chủ')
 
 @section('noidung')
     <div class="container-fluid p-0">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h4 class="mb-1 fw-bold text-dark">Tổng Quan Hệ Thống</h4>
-                <small class="text-muted">Số liệu tính đến ngày {{ date('d/m/Y') }}</small>
+                <h4 class="mb-1 fw-bold text-black">Tổng Quan Hệ Thống</h4>
+                <p class="mb-0 text-muted">Chào mừng bạn đến với hệ thống quản lý nhà trọ TMD</p>
             </div>
             <div class="badge bg-white text-dark p-2 border shadow-sm d-flex align-items-center">
                 <i class="bi bi-calendar-event me-2 text-primary"></i>

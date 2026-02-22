@@ -19,17 +19,17 @@
 
 .sidebar .nav-link:hover {
     background-color: #e8f5e9;
-    color: #2e7d32;
+    color: #2b54cc;
 }
 
 .sidebar .nav-link.active {
-    background: linear-gradient(135deg, #43a047, #2e7d32);
+    background: linear-gradient(135deg, #125da3, #104e8f);
     color: #fff !important;
     box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
 }
 
 .sidebar .brand-title {
-    color: #2e7d32;
+    color: #276fc1;
     font-weight: 700;
 }
 

@@ -1,6 +1,6 @@
 <div class="d-flex flex-column flex-shrink-0 p-3 sidebar">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
-        <span class="fs-4 brand-title">🏠 Nhà Trọ TMD</span>
+        <span class="fs-4 brand-title">🏠 {{ \App\Models\Cauhinh::first()->ten_nha_tro ?? 'Quản Lý Nhà Trọ' }}</span>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
@@ -10,27 +10,27 @@
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link">
+            <a href="{{ route('phong.index') }}" class="nav-link">
                 <i class="bi bi-house-door me-2"></i>Quản lý phòng
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link">
+            <a href="{{ route('khachhang.index') }}" class="nav-link">
                 <i class="bi bi-people me-2"></i>Khách thuê
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link">
+            <a href="{{ route('hopdong.index') }}" class="nav-link">
                 <i class="bi bi-file-earmark-text me-2"></i>Hợp đồng
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link">
+            <a href="{{ route('hoadon.index') }}" class="nav-link">
                 <i class="bi bi-receipt me-2"></i>Hóa đơn
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target = "#settingModal">
                 <i class="bi bi-gear me-2"></i>Cài đặt
             </a>
         </li>
