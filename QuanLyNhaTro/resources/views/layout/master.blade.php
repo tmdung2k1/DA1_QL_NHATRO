@@ -26,6 +26,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('js/menu.js') }}"></script>
     @stack('js')
     @php
         $cauhinh = \App\Models\Cauhinh::first();
@@ -43,17 +44,22 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="fw-bold mb-1">Tên Nhà Trọ / Hệ Thống</label>
-                            <input type="text" name="ten_nha_tro" class="form-control"value="{{ $cauhinh->ten_nha_tro ?? 'Nhà Trọ TMD' }}" required>
+                            <input type="text" name="ten_nha_tro"
+                                class="form-control"value="{{ $cauhinh->ten_nha_tro ?? 'Nhà Trọ TMD' }}" required>
                         </div>
                         <h6 class="text-primary border-bottom pb-2 mt-4 mb-3">Đơn Giá Dịch Vụ</h6>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="fw-bold text-warning"><i class="bi bi-lightning-fill"></i> Giá Điện(VNĐ/kWh)</label>
-                                <input type="number" name="gia_dien" class="form-control"value="{{ $cauhinh->gia_dien ?? 3500 }}" required>
+                                <label class="fw-bold text-warning"><i class="bi bi-lightning-fill"></i> Giá
+                                    Điện(VNĐ/kWh)</label>
+                                <input type="number" name="gia_dien"
+                                    class="form-control"value="{{ $cauhinh->gia_dien ?? 3500 }}" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="fw-bold text-info"><i class="bi bi-droplet-fill"></i> Giá Nước(VNĐ/m³)</label>
-                                <input type="number" name="gia_nuoc" class="form-control"value="{{ $cauhinh->gia_nuoc ?? 10000 }}" required>
+                                <label class="fw-bold text-info"><i class="bi bi-droplet-fill"></i> Giá
+                                    Nước(VNĐ/m³)</label>
+                                <input type="number" name="gia_nuoc"
+                                    class="form-control"value="{{ $cauhinh->gia_nuoc ?? 10000 }}" required>
                             </div>
                         </div>
                     </div>
@@ -66,4 +72,5 @@
         </div>
     </div>
 </body>
+
 </html>

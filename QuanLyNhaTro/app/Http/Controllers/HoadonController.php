@@ -120,7 +120,7 @@ class HoadonController extends Controller
     public function print($id)
     {
         //lấy thông tin hóa đơn kèm hợp đồng, phòng, khách
-        $hoadon = Hoadon::with(['hopdong.phong', 'hopdong.khachhang'])->find($id);
+        $hoadon = Hoadon::with(['hopdong.phong', 'hopdong.khach'])->find($id);
         if (!$hoadon) {
             return redirect()->back()
                 ->with('error', 'Hóa đơn không tồn tại!');

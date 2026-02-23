@@ -1,47 +1,64 @@
-<div class="d-flex flex-column flex-shrink-0 p-3 sidebar">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
-        <span class="fs-4 brand-title">🏠 {{ \App\Models\Cauhinh::first()->ten_nha_tro ?? 'Quản Lý Nhà Trọ' }}</span>
-    </a>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
+<div class="sidebar" id="sidebar">
+    <div class="d-flex align-items-center justify-content-between px-3 py-3 sidebar-header">
+        <a href="/" class="d-flex align-items-center text-decoration-none sidebar-brand">
+            <span class="brand-icon">🏠</span>
+            <span class="brand-title ms-2">{{ \App\Models\Cauhinh::first()->ten_nha_tro ?? 'Quản Lý Nhà Trọ' }}</span>
+        </a>
+        {{-- Nút toggle thu gọn menu --}}
+        <button class="btn btn-sm btn-light toggle-btn" id="sidebarToggle" title="Thu gọn menu">
+            <i class="bi bi-layout-sidebar" id="toggleIcon"></i>
+        </button>
+    </div>
+    <hr class="mx-3 mt-0">
+    <ul class="nav nav-pills flex-column mb-auto px-2" id="navMenu" style="position:relative">
+        <div id="nav-slider"></div>
         <li class="nav-item">
-            <a href="{{ url('/') }}" class="nav-link active" aria-current="page">
-                <i class="bi bi-bar-chart-line me-2"></i>Tổng quan
+            <a href="{{ url('/') }}" class="nav-link {{ request()->routeIs('trangchu') ? 'active' : '' }}">
+                <i class="bi bi-bar-chart-line menu-icon"></i>
+                <span class="menu-text">Tổng quan</span>
             </a>
         </li>
-        <li>
-            <a href="{{ route('phong.index') }}" class="nav-link">
-                <i class="bi bi-house-door me-2"></i>Quản lý phòng
+        <li class="nav-item">
+            <a href="{{ route('phong.index') }}" class="nav-link {{ request()->routeIs('phong.*') ? 'active' : '' }}">
+                <i class="bi bi-house-door menu-icon"></i>
+                <span class="menu-text">Quản lý phòng</span>
             </a>
         </li>
-        <li>
-            <a href="{{ route('khachhang.index') }}" class="nav-link">
-                <i class="bi bi-people me-2"></i>Khách thuê
+        <li class="nav-item">
+            <a href="{{ route('khachhang.index') }}"
+                class="nav-link {{ request()->routeIs('khachhang.*') ? 'active' : '' }}">
+                <i class="bi bi-people menu-icon"></i>
+                <span class="menu-text">Khách thuê</span>
             </a>
         </li>
-        <li>
-            <a href="{{ route('hopdong.index') }}" class="nav-link">
-                <i class="bi bi-file-earmark-text me-2"></i>Hợp đồng
+        <li class="nav-item">
+            <a href="{{ route('hopdong.index') }}"
+                class="nav-link {{ request()->routeIs('hopdong.*') ? 'active' : '' }}">
+                <i class="bi bi-file-earmark-text menu-icon"></i>
+                <span class="menu-text">Hợp đồng</span>
             </a>
         </li>
-        <li>
-            <a href="{{ route('hoadon.index') }}" class="nav-link">
-                <i class="bi bi-receipt me-2"></i>Hóa đơn
+        <li class="nav-item">
+            <a href="{{ route('hoadon.index') }}"
+                class="nav-link {{ request()->routeIs('hoadon.*') ? 'active' : '' }}">
+                <i class="bi bi-receipt menu-icon"></i>
+                <span class="menu-text">Hóa đơn</span>
             </a>
         </li>
-        <li>
-            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target = "#settingModal">
-                <i class="bi bi-gear me-2"></i>Cài đặt
+        <li class="nav-item">
+            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#settingModal">
+                <i class="bi bi-gear menu-icon"></i>
+                <span class="menu-text">Cài đặt</span>
             </a>
         </li>
     </ul>
-    <hr>
-    <div class="dropdown">
+    <hr class="mx-3">
+    <div class="dropdown px-3 pb-3">
         <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser1"
             data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://github.com/mdo.png" alt="" width="32" height="32"
-                class="rounded-circle me-2">
-            <strong>Admin</strong>
+                class="rounded-circle me-2 flex-shrink-0">
+            <strong class="menu-text">Admin</strong>
         </a>
         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser1">
             <li><a class="dropdown-item" href="#">Hồ sơ</a></li>
