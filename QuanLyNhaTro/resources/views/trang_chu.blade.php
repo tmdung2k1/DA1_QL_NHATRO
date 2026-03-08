@@ -2,6 +2,7 @@
 @section('tieude', 'Trang Chủ')
 
 @section('noidung')
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <div class="container-fluid p-0">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
@@ -20,7 +21,8 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
                             <div>
-                                <div class="text-uppercase text-muted small fw-bold mb-1">Doanh Thu Tháng</div>
+                                <div class="text-uppercase text-muted small fw-bold mb-1">Doanh Thu Năm {{ $nam_nay }}
+                                </div>
                                 <h3 class="text-success fw-bold mb-0">
                                     {{ number_format($doanh_thu) }} <span class="fs-6 text-muted fw-normal">VNĐ</span>
                                 </h3>
@@ -88,6 +90,40 @@
             </div>
         </div>
 
+        {{-- BIỂU ĐỒ --}}
+        <div class="row g-3 mb-4 mt-2">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-white border-bottom py-3">
+                        <h6 class="m-0 fw-bold text-primary"><i class="bi bi-bar-chart-fill"></i> Biểu đồ doanh thu 6 tháng
+                            gần nhất</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="revenueChart" data-labels='@json($labels_thang)'
+                                data-values='@json($doanh_thu_thang)'>
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-white border-bottom py-3">
+                        <h6 class="m-0 fw-bold text-secondary"><i class="bi bi-pie-chart-fill"></i> Tỉ lệ lấp đầy phòng</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container-pie">
+                            <canvas id="roomChart" data-phong-trong="{{ $phong_trong }}"
+                                data-phong-co-khach="{{ $phong_co_khach }}">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row g-3">
             <div class="col-lg-8">
                 <h6 class="text-primary fw-bold mb-3"><i class="bi bi-lightning-charge"></i> Truy cập nhanh</h6>
@@ -143,3 +179,8 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ asset('js/dashboard.js') }}"></script>
+@endpush

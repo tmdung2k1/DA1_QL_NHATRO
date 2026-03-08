@@ -61,11 +61,7 @@
             <strong class="menu-text">Admin</strong>
         </a>
         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser1">
-            <li><a class="dropdown-item" href="#">Hồ sơ</a></li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+            <li><a class="dropdown-item" href="{{ route('logout') }}">Đăng xuất</a></li>
         </ul>
     </div>
 </div>

@@ -1,0 +1,14 @@
+/* biểu đồ cột */
+.chart-container{
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+/* biểu đồ tròn */
+.chart-container-pie{
+    position: relative;
+    width: 100%;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+}
