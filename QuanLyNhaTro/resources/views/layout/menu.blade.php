@@ -13,6 +13,7 @@
     <ul class="nav nav-pills flex-column mb-auto px-2" id="navMenu" style="position:relative">
         <div id="nav-slider"></div>
         <li class="nav-item">
+            {{-- sử dụng cấu trúc routeIs để kiểm tra nếu route hiện tại là 'trangchu' thì thêm class 'active' --}}
             <a href="{{ url('/') }}" class="nav-link {{ request()->routeIs('trangchu') ? 'active' : '' }}">
                 <i class="bi bi-bar-chart-line menu-icon"></i>
                 <span class="menu-text">Tổng quan</span>
@@ -46,6 +47,13 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{ route('dichvu.index') }}"
+                class="nav-link {{ request()->routeIs('dichvu.*') ? 'active' : '' }}">
+                <i class="bi bi-box-seam menu-icon"></i>
+                <span class="menu-text">Dịch vụ</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#settingModal">
                 <i class="bi bi-gear menu-icon"></i>
                 <span class="menu-text">Cài đặt</span>
@@ -56,7 +64,7 @@
     <div class="dropdown px-3 pb-3">
         <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser1"
             data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="" width="32" height="32"
+            <img src="{{ asset('image/admin.jpg') }}" alt="" width="32" height="32"
                 class="rounded-circle me-2 flex-shrink-0">
             <strong class="menu-text">Admin</strong>
         </a>

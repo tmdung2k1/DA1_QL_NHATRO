@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CauhinhController;
+use App\Http\Controllers\DichvuController;
 use App\Http\Controllers\HoadonController;
 use App\Http\Controllers\HopdongController;
 use App\Http\Controllers\KhachhangController;
 use App\Http\Controllers\LoaiphongController;
 use App\Http\Controllers\PhongController;
 use App\Http\Controllers\ThongkeController;
+use App\Models\Dichvu;
 use Illuminate\Support\Facades\Route;
 
 //Định nghĩa các route cho ứng dụng quản lý nhà trọ
@@ -69,5 +71,11 @@ Route::middleware(['auth'])->group(function () {
     //Route cấu hình hệ thống
     Route::prefix('cai_dat')->group(function () {
         Route::post('/cap-nhat', [CauhinhController::class, 'update'])->name('caidat.update'); // cập nhật cấu hình
+    });
+    //quản lý dịch vụ
+    Route::prefix('dich_vu')->group(function (){
+        Route::get('/', [DichvuController::class, 'index'])->name('dichvu.index'); // danh sách dịch vụ
+        Route::post('/them', [DichvuController::class, 'store'])->name('dichvu.store'); // thêm dịch vụ
+        Route::get('/xoa/{id}', [DichvuController::class, 'destroy'])->name('dichvu.destroy'); // xóa dịch vụ
     });
 });

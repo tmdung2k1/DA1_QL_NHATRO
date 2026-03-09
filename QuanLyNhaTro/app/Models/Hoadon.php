@@ -30,4 +30,8 @@ class Hoadon extends Model
     {
         return $this->belongsTo(Hopdong::class, 'Ma_hop_dong', 'Ma_hop_dong');
     }
+    public function chitiethoadon()
+    {
+        return $this->hasMany(Chitiethoadon::class, 'Ma_hoa_don', 'Ma_hoa_don');
+    }
 }
