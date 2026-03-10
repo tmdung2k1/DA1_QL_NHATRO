@@ -63,6 +63,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/lay-chi-so/{id}', [HoadonController::class, 'layChiSoCu']);
         Route::get('/thanh-toan/{id}', [HoadonController::class, 'thanhtoan'])->name('hoadon.thanhtoan'); // thanh toán hóa đơn
         Route::get('/in/{id}', [HoadonController::class, 'print'])->name('hoadon.print'); // in hóa đơn
+        Route::get('/chi-tiet/{id}', [\App\http\Controllers\HoadonController::class, 'show'])->name('hoadon.show'); // chi tiết hóa đơn
     });
 
     //Route Trang chủ

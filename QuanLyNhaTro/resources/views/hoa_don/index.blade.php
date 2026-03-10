@@ -81,6 +81,9 @@
                             target="_blank">
                             <i class="bi bi-printer"></i> In
                         </a>
+                        <a href="{{ route('hoadon.show', $hd->Ma_hoa_don) }}" class="btn btn-primary text-white">
+                            <i class="bi bi-eye"></i> Xem chi tiết
+                        </a>
                         @if ($hd->Trang_thai == 0)
                             <a href="{{ route('hoadon.thanhtoan', $hd->Ma_hoa_don) }}" class="btn btn-success btn-sm"
                                 onclick="return confirm('Xác nhận khách đã đóng đủ {{ number_format($hd->Tong_tien) }} VNĐ?');">

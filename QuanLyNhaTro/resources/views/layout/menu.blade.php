@@ -2,7 +2,8 @@
     <div class="d-flex align-items-center justify-content-between px-3 py-3 sidebar-header">
         <a href="/" class="d-flex align-items-center text-decoration-none sidebar-brand">
             <span class="brand-icon">🏠</span>
-            <span class="brand-title ms-2">{{ \App\Models\Cauhinh::first()->ten_nha_tro ?? 'Quản Lý Nhà Trọ' }}</span>
+             {{-- lấy tên nhà trọ từ bảng cấu hình, nếu chưa có thì hiển thị "Quản Lý Nhà Trọ" mặc định --}}
+            <span class="brand-title ms-2">{{ \App\Models\Cauhinh::first()->ten_nha_tro ?? 'Quản Lý Nhà Trọ' }}</span> 
         </a>
         {{-- Nút toggle thu gọn menu --}}
         <button class="btn btn-sm btn-light toggle-btn" id="sidebarToggle" title="Thu gọn menu">

@@ -6,6 +6,8 @@ use App\Models\Cauhinh;
 use App\Models\Hoadon;
 use App\Models\Hopdong;
 use Illuminate\Http\Request;
+use App\Models\Dichvu;
+use App\Models\Chitiethoadon;
 
 class HoadonController extends Controller
 {
@@ -18,9 +20,12 @@ class HoadonController extends Controller
     //hiển thị form tạo hóa đơn
     public function create()
     {
-        //lấy danh sách hợp đồng để chọn khi tạo hóa đơn
-        $ds_hopdong = Hopdong::with(['phong', 'khach'])->where('Trang_thai', 1)->get();
-        return view('hoa_don.create', compact('ds_hopdong'));
+        //Lấy danh sách hợp đồng đang hoạt động để chọn khi tạo hóa đơn
+        $ds_hopdong = Hopdong::where('Trang_thai', 1)
+            ->with(['phong', 'khach'])->get();
+        //lấy dịch vu đang có
+        $dichvu = Dichvu::all();
+        return view('hoa_don.create', compact('ds_hopdong', 'dichvu'));
     }
     //ajax Tự động lấy chỉ số cũ
     public function layChiSoCu($ma_hop_dong)
@@ -50,28 +55,47 @@ class HoadonController extends Controller
     //lưu hóa đơn mới
     public function store(Request $request)
     {
-        //lấy giá điện nước từ cấu hình
-        $cauhinh = Cauhinh::first();
-        $GIA_DIEN = $cauhinh->gia_dien;
-        $GIA_NUOC = $cauhinh->gia_nuoc;
-
-        $dien_tieu_thu = $request->Chi_so_dien_moi - $request->Chi_so_dien_cu;
-        $nuoc_tieu_thu = $request->Chi_so_nuoc_moi - $request->Chi_so_nuoc_cu;
-
-        $tien_dien = $dien_tieu_thu * $GIA_DIEN;
-        $tien_nuoc = $nuoc_tieu_thu * $GIA_NUOC;
-
-        //lấy giá phòng từ hợp đồng
+        //Kiểm tra dữ liệu đầu vào
+        $request->validate([
+            'Ma_hop_dong' => 'required',
+            'Thang' => 'required|numeric|min:1|max:12',
+            'Nam' => 'required|numeric',
+            'Chi_so_dien_moi' => 'required|numeric|gte:Chi_so_dien_cu',
+            'Chi_so_nuoc_moi' => 'required|numeric|gte:Chi_so_nuoc_cu',
+        ], [
+            'Chi_so_dien_moi.gte' => 'Chỉ số điện mới phải lớn hơn hoặc bằng chỉ số cũ!',
+            'Chi_so_nuoc_moi.gte' => 'Chỉ số nước mới phải lớn hơn hoặc bằng chỉ số cũ!',
+        ]);
+        //Lấy giá Điện, Nước từ Cấu hình và Giá phòng từ Hợp đồng
+        $cauhinh = \App\Models\Cauhinh::first();
         $hopdong = Hopdong::find($request->Ma_hop_dong);
+
+        $so_dien = $request->Chi_so_dien_moi - $request->Chi_so_dien_cu;
+        $so_nuoc = $request->Chi_so_nuoc_moi - $request->Chi_so_nuoc_cu;
+
+        $tien_dien = $so_dien * $cauhinh->gia_dien;
+        $tien_nuoc = $so_nuoc * $cauhinh->gia_nuoc;
         $tien_phong = $hopdong->Gia_phong_thuc_te;
 
-        $tong_tien = $tien_phong + $tien_dien + $tien_nuoc;
-
-        Hoadon::create([
+        //Tính tiền dịch vụ phát sinh
+        $tien_dich_vu_them = 0;
+        $dich_vu_duoc_chon = []; //Mảng lưu tên dịch vụ đã chọn để hiển thị trong chi tiết hóa đơn
+        if ($request->has('dich_vu')) {
+            //Lấy thông tin dịch vụ đã chọn
+            $dich_vu_duoc_chon = Dichvu::whereIn('Ma_dich_vu', $request->dich_vu)->get();
+            foreach ($dich_vu_duoc_chon as $dv) {
+                //Tính tiền dịch vụ phát sinh
+                $tien_dich_vu_them += $dv->Don_gia;
+            }
+        }
+        //Tổng tiền phải thanh toán
+        $tong_tien = $tien_phong + $tien_dien + $tien_nuoc + $tien_dich_vu_them;
+        //lưu hóa đơn
+        $hoadon = Hoadon::create([
             'Ma_hop_dong' => $request->Ma_hop_dong,
             'Thang' => $request->Thang,
             'Nam' => $request->Nam,
-            'Ngay_lap' => date('Y-m-d'), //ngày lập là ngày hiện tại
+            'Ngay_lap' => \Carbon\Carbon::now(),
             'Chi_so_dien_cu' => $request->Chi_so_dien_cu,
             'Chi_so_dien_moi' => $request->Chi_so_dien_moi,
             'Chi_so_nuoc_cu' => $request->Chi_so_nuoc_cu,
@@ -80,9 +104,23 @@ class HoadonController extends Controller
             'Tien_nuoc' => $tien_nuoc,
             'Tien_phong' => $tien_phong,
             'Tong_tien' => $tong_tien,
-            'Trang_thai' => 0 //mặc định là chưa thanh toán
+            'Trang_thai' => 0 //Mặc định khi tạo là chưa thanh toán
         ]);
-        return redirect()->route('hoadon.index')->with('thongbao', 'Tạo hóa đơn thành công!');
+        //lưu chi tiết hóa đơn cho các dịch vụ phát sinh (nếu có)
+        if (count($dich_vu_duoc_chon) > 0) {
+            foreach ($dich_vu_duoc_chon as $dv) {
+                Chitiethoadon::create([
+                    'Ma_hoa_don' => $hoadon->Ma_hoa_don,
+                    'Ma_dich_vu' => $dv->Ma_dich_vu,
+                    'Chi_so_cu' => 0, //Dịch vụ phát sinh nên không có chỉ số cũ
+                    'Chi_so_moi' => 0,
+                    'So_luong_su_dung' => 1, //Mặc định mỗi dịch vụ phát sinh được tính 1 đơn vị, có thể tùy chỉnh sau nếu cần
+                    'Thanh_tien' => $dv->Don_gia
+                ]);
+            }
+        }
+        return redirect()->route('hoadon.index')
+            ->with('thongbao', 'Đã lập hóa đơn thành công!');
     }
 
     //thanh toán hóa đơn
@@ -129,5 +167,18 @@ class HoadonController extends Controller
         $cauhinh = \App\Models\Cauhinh::first();
         //Trả về view in hóa đơn
         return view('hoa_don.print', compact('hoadon', 'cauhinh'));
+    }
+    //chi tiết hóa đơn
+    public function show($id)
+    {
+        // Lấy hóa đơn kèm theo: Hợp đồng, Phòng, Khách hàng và Các dịch vụ chi tiết
+        $hoadon = Hoadon::with(['Hopdong.phong', 'Hopdong.khachhang', 'chitiets.dichvu'])->find($id);
+        if (!$hoadon) {
+            return redirect()->route('hoadon.index')
+                ->with('error', 'Không tìm thấy hóa đơn!');
+        }
+        //Lấy cấu hình để biết giá điện, giá nước
+        $cauhinh = \App\Models\Cauhinh::first();
+        return view('hoa_don.show', compact('hoadon', 'cauhinh'));
     }
 }
