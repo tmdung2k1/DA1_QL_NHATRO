@@ -34,4 +34,8 @@ class Hoadon extends Model
     {
         return $this->hasMany(Chitiethoadon::class, 'Ma_hoa_don', 'Ma_hoa_don');
     }
+    public function chitiets()
+    {
+        return $this->hasMany(Chitiethoadon::class, 'Ma_hoa_don', 'Ma_hoa_don');
+    }
 }

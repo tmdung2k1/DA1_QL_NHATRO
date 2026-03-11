@@ -34,7 +34,6 @@ class HoadonController extends Controller
         $hoadon_cu = Hoadon::where('Ma_hop_dong', $ma_hop_dong)
             ->orderBy('Ma_hoa_don', 'desc')
             ->first();
-
         if ($hoadon_cu) {
             // Nếu đã từng có hóa đơn -> Lấy chỉ số mới kỳ trước
             return response()->json([

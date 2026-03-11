@@ -29,4 +29,8 @@ class Hopdong extends Model
     {
         return $this->belongsTo(Khachhang::class, 'Ma_khach', 'Ma_khach');
     }
+    public function khachhang()
+    {
+        return $this->belongsTo(Khachhang::class, 'Ma_khach', 'Ma_khach');
+    }
 }
