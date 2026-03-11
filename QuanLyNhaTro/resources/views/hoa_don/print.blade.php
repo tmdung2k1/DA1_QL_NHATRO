@@ -76,6 +76,18 @@
                         <td class="text-end">{{ number_format($cauhinh->gia_nuoc ?? 0) }}</td>
                         <td class="text-end fw-bold">{{ number_format($hoadon->Tien_nuoc) }}</td>
                     </tr>
+                    @php $stt = 4; @endphp
+                    @foreach ($hoadon->chitiets as $chitiet)
+                        <tr>
+                            <td class="text-center">{{ $stt++ }}</td>
+                            <td>{{ $chitiet->dichvu->Ten_dich_vu ?? 'Dịch vụ đã xóa' }}</td>
+                            <td class="text-center">{{ $chitiet->So_luong_su_dung }}
+                                {{ $chitiet->dichvu->Don_vi_tinh ?? 'Lần' }}</td>
+                            <td class="text-end">{{ number_format($chitiet->Thanh_tien) }}</td>
+                            <td class="text-end fw-bold">
+                                {{ number_format($chitiet->Thanh_tien * $chitiet->So_luong_su_dung) }}</td>
+                        </tr>
+                    @endforeach
                     <tr>
                         <td colspan="4" class="text-end fw-bold fs-5">TỔNG CỘNG:</td>
                         <td class="text-end fw-bold fs-5 text-danger">{{ number_format($hoadon->Tong_tien) }} VNĐ</td>

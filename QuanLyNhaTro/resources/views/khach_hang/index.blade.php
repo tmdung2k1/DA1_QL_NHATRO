@@ -89,7 +89,9 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label>Ngày bắt đầu ở</label>
-                                <input type="date" name="Ngay_vao" id="edit_Ngay_vao" class="form-control">
+                                <input type="text" name="Ngay_vao" id="edit_Ngay_vao" class="form-control"
+                                    autocomplete="off" data-max="{{ date('Y-m-d', strtotime('+1 month')) }}">
+                                {{-- giới hạn ngày nhập không được vượt quá 1 tháng kể từ ngày hiện tại --}}
                             </div>
                         </div>
                         <div class="text-end">
@@ -103,6 +105,12 @@
     </div>
 @endsection
 
+@push('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+@endpush
+
 @push('js')
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/vn.js"></script>
     <script src="{{ asset('js/khachhang.js') }}"></script>
 @endpush

@@ -12,32 +12,65 @@
         </div>
     </div>
 
-    <div class="card shadow border-0">
-        <div class="card-body p-4">
-            <div class="row mb-4 border-bottom pb-3">
-                <div class="col-sm-6">
-                    <h6 class="text-muted mb-1">Thông tin khách hàng:</h6>
-                    <h5 class="fw-bold text-dark">{{ $hoadon->hopdong->khachhang->Ho_ten }}</h5>
-                    <div><strong>Phòng:</strong>{{ $hoadon->hopdong->phong->Ten_phong }}</div>
-                    <div><strong>SĐT:</strong>{{ $hoadon->hopdong->khachhang->So_dien_thoai }}</div>
+    <div class="row mb-5">
+        <div class="col-md-6 mb-3 mb-md-0">
+            <div class="card shadow-sm border-0 h-100 border-start border-primary border-4"
+                style="background-color: #eef4ff;">
+                <div class="card-body p-4">
+                    <h6 class="text-uppercase text-primary fw-bold mb-3"><i class="bi bi-person-badge fs-5 me-1"></i> Thông
+                        Tin Khách Hàng</h6>
+                    <h4 class="fw-bold text-primary text-uppercase mb-3">{{ $hoadon->hopdong->khachhang->Ho_ten }}</h4>
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-door-open fs-5 text-primary me-3"></i>
+                        <span class="fs-6"><strong>Phòng thuê:</strong> Phòng
+                            {{ $hoadon->hopdong->phong->Ten_phong }}</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-telephone fs-5 text-primary me-3"></i>
+                        <span class="fs-6"><strong>Số điện thoại:</strong>
+                            {{ $hoadon->hopdong->khachhang->Sdt ?? 'Chưa cập nhật' }}</span>
+                    </div>
                 </div>
-                <div class="col-sm-6 text-sm-end">
-                    <h6 class="text-muted mb-1">Thông tin hóa đơn:</h6>
-                    <div><strong>Kỳ thu tiền:</strong>Tháng {{ $hoadon->Thang }} / {{ $hoadon->Nam }}</div>
-                    <div><strong>Ngày lập:</strong> {{ \Carbon\Carbon::parse($hoadon->Ngay_lap)->format('d/m/Y') }}</div>
-                    <div><strong>Trạng thái:</strong>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 h-100 border-start border-success border-4"
+                style="background-color: #edfaf3;">
+                <div class="card-body p-4">
+                    <h6 class="text-uppercase text-success fw-bold mb-3"><i class="bi bi-file-earmark-text fs-5 me-1"></i>
+                        Thông Tin Hóa Đơn</h6>
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-calendar-check fs-5 text-success me-3"></i>
+                        <span class="fs-6"><strong>Kỳ thu tiền:</strong> Tháng <span
+                                class="fw-bold fs-5 text-dark">{{ $hoadon->Thang }} / {{ $hoadon->Nam }}</span></span>
+                    </div>
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-clock-history fs-5 text-success me-3"></i>
+                        <span class="fs-6"><strong>Ngày lập phiếu:</strong>
+                            {{ \Carbon\Carbon::parse($hoadon->Ngay_lap)->format('d/m/Y') }}</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-info-circle fs-5 text-success me-3"></i>
+                        <span class="fs-6 me-2"><strong>Trạng thái:</strong></span>
                         @if ($hoadon->Trang_thai == 1)
-                            <span class="badge bg-success">Đã thanh toán</span>
+                            <span class="badge bg-success rounded-pill px-3 py-2 shadow-sm fs-6"><i
+                                    class="bi bi-check-circle me-1"></i> Đã thanh toán</span>
                         @else
-                            <span class="badge bg-danger">Chưa thanh toán</span>
+                            <span class="badge bg-danger rounded-pill px-3 py-2 shadow-sm fs-6"><i
+                                    class="bi bi-x-circle me-1"></i> Chưa thanh toán</span>
                         @endif
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
+    <div class="card shadow border-0 border-top border-primary border-3">
+        <div class="card-body p-4">
             <div class="table-responsive">
                 <table class="table table-bordered mb-0">
-                    <thead class="table-light text-center">
+                    <thead class="text-center text-white" style="background-color: #0d6efd;">
                         <tr>
                             <th width="5%">STT</th>
                             <th width="40%">Nội Dung Khoản Thu</th>
@@ -88,9 +121,9 @@
                             </tr>
                         @endforeach
 
-                        <tr class="table-primary">
-                            <td colspan="4" class="text-end fw-bold fs-5">TỔNG CỘNG PHẢI THANH TOÁN:</td>
-                            <td class="text-end fw-bold fs-5 text-danger">{{ number_format($hoadon->Tong_tien) }} đ</td>
+                        <tr class="border-0">
+                            <td colspan="4" class="text-start fw-bold fs-5 text-black border-0">TỔNG CỘNG PHẢI THANH TOÁN:</td>
+                            <td class="text-end fw-bold fs-5 text-black border-0">{{ number_format($hoadon->Tong_tien) }} đ</td>
                         </tr>
                     </tbody>
                 </table>

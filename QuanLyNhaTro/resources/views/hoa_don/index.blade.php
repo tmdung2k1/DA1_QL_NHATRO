@@ -13,15 +13,17 @@
     <div class="row g-4">
         @foreach ($ds_hoadon as $hd)
             <div class="col-12 col-md-6 col-xl-4">
-                <div class="card border-2 h-100 shadow-sm {{ $hd->Trang_thai == 0 ? 'border-warning' : 'border-info' }}">
-                    <div
-                        class="card-header d-flex justify-content-between align-items-center
-                        {{ $hd->Trang_thai == 0 ? 'bg-warning text-dark' : 'bg-info text-white' }} py-2">
-                        <span class="fw-bold fs-6"><i class="bi bi-receipt"></i> HÓA ĐƠN #{{ $hd->Ma_hoa_don }}</span>
+                <div class="card border-0 h-100 shadow {{ $hd->Trang_thai == 0 ? 'border-warning' : 'border-primary' }}"
+                    style="border-left: 4px solid {{ $hd->Trang_thai == 0 ? '#ffc107' : '#0d6efd' }} !important;">
+                    <div class="card-header d-flex justify-content-between align-items-center py-2"
+                        style="background-color: {{ $hd->Trang_thai == 0 ? '#ffc107' : '#0d6efd' }}; color: {{ $hd->Trang_thai == 0 ? '#212529' : '#fff' }};">
+                        <span class="fw-bold fs-6"><i class="bi bi-receipt me-1"></i> HÓA ĐƠN #{{ $hd->Ma_hoa_don }}</span>
                         @if ($hd->Trang_thai == 0)
-                            <span class="badge bg-white text-warning fw-bold">Chưa thu</span>
+                            <span class="badge fw-bold" style="background-color: rgba(0,0,0,0.12); color: #212529;">Chưa
+                                thu</span>
                         @else
-                            <span class="badge bg-white text-info fw-bold">Đã thu</span>
+                            <span class="badge fw-bold" style="background-color: rgba(255,255,255,0.2); color: #fff;">Đã
+                                thu</span>
                         @endif
                     </div>
 
@@ -29,13 +31,17 @@
                         {{-- Thông tin phòng & khách --}}
                         <div class="d-flex justify-content-between align-items-start mb-2">
                             <div>
-                                <div class="fw-bold text-primary fs-5">{{ $hd->hopdong->phong->Ten_phong }}</div>
+                                <div class="fw-bold fs-5"
+                                    style="color: {{ $hd->Trang_thai == 0 ? '#d97706' : '#0d6efd' }};">
+                                    {{ $hd->hopdong->phong->Ten_phong }}</div>
                                 <div class="text-muted" style="font-size:0.9em;">
                                     <i class="bi bi-person-fill"></i> {{ $hd->hopdong->khach->Ho_ten }}
                                 </div>
                             </div>
                             <div class="text-end">
-                                <div class="badge bg-secondary fs-6">Tháng {{ $hd->Thang }}/{{ $hd->Nam }}</div>
+                                <div class="badge fs-6"
+                                    style="background-color: {{ $hd->Trang_thai == 0 ? '#ffc107' : '#0d6efd' }}; color: {{ $hd->Trang_thai == 0 ? '#212529' : '#fff' }};">
+                                    Tháng {{ $hd->Thang }}/{{ $hd->Nam }}</div>
                             </div>
                         </div>
                         <hr class="my-2">
@@ -51,7 +57,7 @@
                                         ⚡ Điện
                                         <small class="text-secondary">
                                             ({{ $hd->Chi_so_dien_cu }} → {{ $hd->Chi_so_dien_moi }}
-                                            = <span class="text-danger">{{ $hd->Chi_so_dien_moi - $hd->Chi_so_dien_cu }}
+                                            = <span class="fw-semibold">{{ $hd->Chi_so_dien_moi - $hd->Chi_so_dien_cu }}
                                                 kWh</span>)
                                         </small>
                                     </td>
@@ -62,7 +68,7 @@
                                         💧 Nước
                                         <small class="text-secondary">
                                             ({{ $hd->Chi_so_nuoc_cu }} → {{ $hd->Chi_so_nuoc_moi }}
-                                            = <span class="text-primary">{{ $hd->Chi_so_nuoc_moi - $hd->Chi_so_nuoc_cu }}
+                                            = <span class="fw-semibold">{{ $hd->Chi_so_nuoc_moi - $hd->Chi_so_nuoc_cu }}
                                                 m³</span>)
                                         </small>
                                     </td>
@@ -73,10 +79,13 @@
                         <hr class="my-2">
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold text-uppercase text-muted" style="font-size:0.85em;">Tổng cộng</span>
-                            <span class="fw-bold text-danger fs-5">{{ number_format($hd->Tong_tien) }} đ</span>
+                            <span class="fw-bold fs-5"
+                                style="color: {{ $hd->Trang_thai == 0 ? '#d97706' : '#0d6efd' }};">{{ number_format($hd->Tong_tien) }}
+                                đ</span>
                         </div>
                     </div>
-                    <div class="card-footer bg-light d-flex gap-2 justify-content-end py-2">
+                    <div class="card-footer d-flex gap-2 justify-content-end py-2"
+                        style="background-color: {{ $hd->Trang_thai == 0 ? '#fff8e1' : '#eef4ff' }};"> 
                         <a href="{{ route('hoadon.print', $hd->Ma_hoa_don) }}" class="btn btn-outline-secondary"
                             target="_blank">
                             <i class="bi bi-printer"></i> In

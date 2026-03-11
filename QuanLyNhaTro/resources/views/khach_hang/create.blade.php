@@ -43,7 +43,8 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label>Ngày bắt đầu ở</label>
-                        <input type="date" name = "Ngay_vao" class="form-control" value="{{ date('Y-m-d') }}">
+                        <input type="text" name="Ngay_vao" id="create_Ngay_vao" class="form-control" autocomplete="off"
+                            data-default="{{ date('Y-m-d') }}" data-max="{{ date('Y-m-d', strtotime('+1 month')) }}">
                     </div>
                     <div class="text-end mt-3">
                         <a href="{{ route('khachhang.index') }}" class="btn btn-secondary">Hủy</a>
@@ -54,3 +55,13 @@
         </div>
     </div>
 @endsection
+
+@push('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+@endpush
+
+@push('js')
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/vn.js"></script>
+    <script src="{{ asset('js/khachhang.js') }}"></script>
+@endpush

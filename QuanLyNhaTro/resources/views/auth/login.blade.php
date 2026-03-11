@@ -12,38 +12,47 @@
 </head>
 
 <body>
-    <div class="login-box">
-        <div class="login-logo">
-            <i class="bi bi-house-door-fill"></i> QUẢN LÝ NHÀ TRỌ
+    <div class="login-card">
+        <div class="logo-box">
+            <i class="bi bi-building"></i>
         </div>
 
-        @if (session('error'))
-            <div class="alert alert-danger text-center">
-                {{ session('error') }}
+        <div class="delay-1">
+            {{-- Hiển thị sau 1s --}}
+            <h2 class="login-title">Chào mừng trở lại!</h2>
+            <div class="login-subtitle">Hệ thống quản lý nhà trọ</div>
+        </div>
+
+        @if(session('error'))
+            <div class="alert alert-danger p-2 text-center shadow-sm delay-2" style="font-size: 13px, border-radius: 8px;">
+                <i class="bi bi-exclamation-triangle-fill"></i> {{ session('error') }}
             </div>
         @endif
 
         <form action="{{ route('login.post') }}" method="POST">
             @csrf
-            <div class="mb-3">
-                <label class="form-label fw-bold">Email đăng nhập</label>
-                <input type="email" name="email" class="form-control" placeholder="Nhập email..." required>
-                @error('email')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
+            <div class="mb-3 delay-2">
+                <label class="form-label">Email</label>
+                <div class="position-relative">
+                    <i class="bi bi-person input-icon"></i>
+                    <input type="email" name="email" class="form-control" placeholder="Nhập email..." value="{{ old('email') }}" required>
+                </div>
             </div>
-            <div class="mb-4">
-                <label class="form-label fw-bold">Mật khẩu</label>
-                <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu..." required>
-                @error('password')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
+            <div class="mb-3 delay-3">
+                <label class="form-label">Mật khẩu</label>
+                <div class="position-relative">
+                    <i class="bi bi-lock input-icon"></i>
+                    <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu..." required>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary w-100 fw-bold fs-5 py-2">ĐĂNG NHẬP</button>
+            <div class="form-check d-flex align-items-center delay-4">
+                <input type="checkbox" class="form-check-input me-2 mt-0" id="remember" style="cursor: pointer">
+                <label class="form-check-label" for="remember">Ghi nhớ đăng nhập</label>
+            </div>
+            <div class="delay-5">
+                <button type="submit" class="btn btn-login">ĐĂNG NHẬP NGAY</button>
+            </div>
         </form>
-        <div class="text-center mt-3 text-muted small">
-            &copy; {{ date('Y') }} Quản Lý Nhà Trọ. Trần Minh Dững - Cần Thơ
-        </div>
     </div>
 </body>
 
