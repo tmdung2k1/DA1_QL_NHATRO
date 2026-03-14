@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Language" content="vi">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ 'In Hóa Đơn - ' . $hoadon->hopdong->phong->Ten_phong }}</title>
@@ -94,23 +96,40 @@
                     </tr>
                 </tbody>
             </table>
-
-            <div class="row mt-5 text-center">
-                <div class="col-6">
-                    <strong>Người lập biên lai</strong>
-                    <br>
-                    <small>(Ký, ghi rõ họ tên)</small>
-                    <br><br><br><br><span>...................................</span>
+            <div class="bill-footer-section">
+                <div class="qr-payment-wrapper mt-4 mb-3">
+                    <div class="qr-payment-box">
+                        <div class="fw-bold mb-1">QUÉT QR ĐỂ THANH TOÁN</div>
+                        <img src="{{ $qr_url }}" class="qr-trigger qr-thumb" onclick="openQrModal()"
+                            alt="Mã QR Thanh Toán" title="Click để phóng to">
+                    </div>
                 </div>
-                <div class="col-6">
-                    <strong>Khách hàng</strong>
-                    <br>
-                    <small>(Ký, ghi rõ họ tên)</small>
-                    <br><br><br><br><span>...................................</span>
+                <div class="row signature-row text-center">
+                    <div class="col-6 signature-block">
+                        <strong>Người lập biên lai</strong>
+                        <br>
+                        <small>(Ký, ghi rõ họ tên)</small>
+                        <div class="signature-space"></div>
+                        <span>...................................</span>
+                    </div>
+                    <div class="col-6 signature-block">
+                        <strong>Khách hàng</strong>
+                        <br>
+                        <small>(Ký, ghi rõ họ tên)</small>
+                        <div class="signature-space"></div>
+                        <span>...................................</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="qr-modal" id="qrModal" onclick="closeQrModal()">
+        <div class="qr-modal-content" onclick="event.stopPropagation();">
+            <button type="button" class="qr-close" onclick="closeQrModal()" aria-label="Đóng">&times;</button>
+            <img src="{{ $qr_url }}" alt="Mã QR Phóng To">
+        </div>
+    </div>
+    <script src="{{ asset('js/print-bill.js') }}"></script>
 </body>
 
 </html>

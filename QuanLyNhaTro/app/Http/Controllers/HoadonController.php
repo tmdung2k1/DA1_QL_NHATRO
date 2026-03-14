@@ -164,8 +164,17 @@ class HoadonController extends Controller
         }
         //lấy thông tin cấu hình để in tên nhà trọ và giá điện nước
         $cauhinh = \App\Models\Cauhinh::first();
+        //Tích hợp thanh toán bằng QR
+        $ngan_hang = 'ICB';
+        $so_tai_khoan = '105878707711';
+        $chu_tai_khoan = 'TRAN MINH DUNG';
+        //Tạo nội dung chuyển khoản tự động
+        $noi_dung = 'Thanh toan ' . $hoadon->hopdong->phong->Ten_phong . 'Thang' . $hoadon->Thang;
+        // Ghép chuỗi tạo URL ảnh QR từ API
+        $qr_url = "https://img.vietqr.io/image/{$ngan_hang}-{$so_tai_khoan}-compact2.png?amount={$hoadon->Tong_tien}&addInfo=" . urlencode($noi_dung) . "&accountName=" . urlencode($chu_tai_khoan);
+
         //Trả về view in hóa đơn
-        return view('hoa_don.print', compact('hoadon', 'cauhinh'));
+        return view('hoa_don.print', compact('hoadon', 'cauhinh', 'qr_url'));
     }
     //chi tiết hóa đơn
     public function show($id)
