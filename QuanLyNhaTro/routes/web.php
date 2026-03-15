@@ -79,4 +79,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/them', [DichvuController::class, 'store'])->name('dichvu.store'); // thêm dịch vụ
         Route::get('/xoa/{id}', [DichvuController::class, 'destroy'])->name('dichvu.destroy'); // xóa dịch vụ
     });
+
+    //Route xuất báo cáo doanh thu
+    Route::get('/xuat_bao_cao', [\App\http\Controllers\HoadonController::class, 'exportExcel'])->name('hoadon.export'); // xuất báo cáo doanh thu
 });

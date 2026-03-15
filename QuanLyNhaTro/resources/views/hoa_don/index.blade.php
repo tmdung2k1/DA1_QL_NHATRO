@@ -4,6 +4,9 @@
 @section('noidung')
     <div class="d-flex justify-content-end mb-3 gap-2">
         <a href="{{ route('hoadon.create') }}" class="btn btn-outline-primary fw-bold">+ Lập Hóa Đơn Mới</a>
+        <a href="{{ route('hoadon.export') }}" class="btn btn-success shadow-sm">
+            <i class="bi bi-file-earmark-excel-fill"></i> Xuất Báo Cáo Excel
+        </a>
     </div>
     @if (session('thongbao'))
         <div class="alert alert-success">
@@ -85,7 +88,7 @@
                         </div>
                     </div>
                     <div class="card-footer d-flex gap-2 justify-content-end py-2"
-                        style="background-color: {{ $hd->Trang_thai == 0 ? '#fff8e1' : '#eef4ff' }};"> 
+                        style="background-color: {{ $hd->Trang_thai == 0 ? '#fff8e1' : '#eef4ff' }};">
                         <a href="{{ route('hoadon.print', $hd->Ma_hoa_don) }}" class="btn btn-outline-secondary"
                             target="_blank">
                             <i class="bi bi-printer"></i> In

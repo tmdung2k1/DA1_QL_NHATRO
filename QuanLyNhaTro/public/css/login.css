@@ -1,5 +1,8 @@
 body {
-    background: radial-gradient(circle at center, #addaf9 0%, #a3bbd4 100%);
+    background:
+        radial-gradient(circle at 14% 16%, rgba(214, 241, 255, 0.32), transparent 32%),
+        radial-gradient(circle at 86% 82%, rgba(255, 215, 187, 0.2), transparent 40%),
+        linear-gradient(145deg, #dbe8f5 0%, #c8d9ea 48%, #b8cce0 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -7,6 +10,12 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow: hidden;
     /* Ngăn cuộn trang lúc animation chạy */
+}
+
+@property --electric-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
 }
 
 /* Hiệu ứng trượt lên và rõ dần */
@@ -71,10 +80,133 @@ body {
     background: #ffffff;
     padding: 40px 30px;
     border-radius: 20px;
+    border: 1px solid rgba(115, 238, 255, 0.34);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     text-align: center;
     animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     /* Áp dụng hiệu ứng trượt lên và rõ dần cho toàn bộ card */
+    position: relative;
+    isolation: isolate;
+}
+
+.login-card::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 22px;
+    padding: 2px;
+    background:
+        conic-gradient(from var(--electric-angle),
+            #00efff 0deg,
+            #00efff 22deg,
+            #95fbff 34deg,
+            transparent 52deg,
+            #ff9f1c 84deg,
+            #ffd166 102deg,
+            transparent 122deg,
+            #00efff 160deg,
+            #7bffff 182deg,
+            transparent 206deg,
+            #ff8a00 246deg,
+            #ffd166 268deg,
+            transparent 292deg,
+            #00efff 326deg,
+            #d8fdff 342deg,
+            #00efff 360deg);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    filter: saturate(1.0) brightness(1.0);
+    animation: electricSpin 2.35s linear infinite, electricFlicker 1.32s steps(12, end) infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.login-card::after {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 28px;
+    background:
+        radial-gradient(circle at 18% 28%, rgba(0, 239, 255, 0.34), transparent 46%),
+        radial-gradient(circle at 82% 72%, rgba(255, 153, 51, 0.26), transparent 46%);
+    filter: blur(9px);
+    animation: electricPulse 1.92s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -2;
+}
+
+@keyframes electricSpin {
+    to {
+        --electric-angle: 360deg;
+    }
+}
+
+@keyframes electricFlicker {
+
+    0%,
+    100% {
+        opacity: 0.72;
+        filter: saturate(1.0) brightness(1.0);
+        transform: translate(0, 0) scale(1);
+    }
+
+    11% {
+        opacity: 0.51;
+        filter: saturate(1.07) brightness(1.02);
+        transform: translate(0.32px, -0.16px) scale(1.006);
+    }
+
+    19% {
+        opacity: 0.75;
+        filter: saturate(1.03) brightness(1.0);
+        transform: translate(-0.32px, 0.24px) scale(0.9985);
+    }
+
+    33% {
+        opacity: 0.5;
+        filter: saturate(1.09) brightness(1.03);
+        transform: translate(0.4px, 0) scale(1.0065);
+    }
+
+    47% {
+        opacity: 0.72;
+        filter: saturate(1.0) brightness(1.0);
+        transform: translate(-0.32px, -0.24px) scale(1);
+    }
+
+    63% {
+        opacity: 0.46;
+        filter: saturate(1.12) brightness(1.05);
+        transform: translate(0.4px, 0.32px) scale(1.008);
+    }
+
+    79% {
+        opacity: 0.75;
+        filter: saturate(1.01) brightness(1.0);
+        transform: translate(-0.24px, 0.08px) scale(1);
+    }
+
+    91% {
+        opacity: 0.53;
+        filter: saturate(1.07) brightness(1.02);
+        transform: translate(0.32px, -0.24px) scale(1.006);
+    }
+}
+
+@keyframes electricPulse {
+
+    0%,
+    100% {
+        opacity: 0.24;
+        transform: scale(0.996);
+    }
+
+    50% {
+        opacity: 0.45;
+        transform: scale(1.01);
+    }
 }
 
 .logo-box {

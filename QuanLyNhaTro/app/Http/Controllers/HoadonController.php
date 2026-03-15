@@ -8,6 +8,8 @@ use App\Models\Hopdong;
 use Illuminate\Http\Request;
 use App\Models\Dichvu;
 use App\Models\Chitiethoadon;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\DoanhthuExport;
 
 class HoadonController extends Controller
 {
@@ -188,5 +190,11 @@ class HoadonController extends Controller
         //Lấy cấu hình để biết giá điện, giá nước
         $cauhinh = \App\Models\Cauhinh::first();
         return view('hoa_don.show', compact('hoadon', 'cauhinh'));
+    }
+    //xuất báo cáo doanh thu
+    public function exportExcel()
+    {
+        //Tải file về máy với tên là Bao_Cao_Doanh_Thu.xlsx
+        return Excel::download(new DoanhthuExport, 'Bao_Cao_Doanh_Thu_Nha_tro.xlsx');
     }
 }
