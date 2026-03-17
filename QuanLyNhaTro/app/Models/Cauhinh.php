@@ -9,7 +9,7 @@ class Cauhinh extends Model
 {
     use HasFactory;
     protected $table = 'cauhinh';
-    protected $primaryKey = 'ID';
-    public $timestamps = false;
+    protected $primaryKey = 'Ma_CH';
+    public $timestamps = true;
     protected $fillable = ['ten_nha_tro', 'gia_dien', 'gia_nuoc'];
 }

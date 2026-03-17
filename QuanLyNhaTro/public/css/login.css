@@ -11,8 +11,8 @@ body {
     overflow: hidden;
     /* Ngăn cuộn trang lúc animation chạy */
 }
-
-@property --electric-angle {
+/* Định nghĩa biến CSS cho góc quay của hiệu ứng điện */
+@property --electric-angle {  
     syntax: '<angle>';
     inherits: false;
     initial-value: 0deg;

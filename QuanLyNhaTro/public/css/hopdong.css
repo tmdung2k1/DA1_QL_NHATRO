@@ -10,7 +10,7 @@
 
 @media print {
     @page {
-        margin: 0; 
+        margin: 0;
     }
 
     /* Thêm padding cho body để bù lại margin 0 */
@@ -37,8 +37,11 @@
         display: none !important;
     }
 
-    /* Ẩn sidebar menu */
-    .d-flex.flex-column.flex-shrink-0 {
+    /* Ẩn toàn bộ khung điều hướng khi in */
+    .sidebar,
+    .navbar-top,
+    #settingModal,
+    .modal-backdrop {
         display: none !important;
     }
 
@@ -46,11 +49,6 @@
     .main-content {
         margin-left: 0 !important;
         padding: 0 !important;
-    }
-
-    /* Ẩn tiêu đề trang và đường kẻ */
-    .main-content>.d-flex.border-bottom {
-        display: none !important;
     }
 
     /* Ẩn nút quay lại */

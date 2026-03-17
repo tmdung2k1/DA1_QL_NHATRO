@@ -23,8 +23,9 @@
             <div class="login-subtitle">Hệ thống quản lý nhà trọ</div>
         </div>
 
-        @if(session('error'))
-            <div class="alert alert-danger p-2 text-center shadow-sm delay-2" style="font-size: 13px, border-radius: 8px;">
+        @if (session('error'))
+            <div class="alert alert-danger p-2 text-center shadow-sm delay-2"
+                style="font-size: 13px, border-radius: 8px;">
                 <i class="bi bi-exclamation-triangle-fill"></i> {{ session('error') }}
             </div>
         @endif
@@ -35,7 +36,8 @@
                 <label class="form-label">Email</label>
                 <div class="position-relative">
                     <i class="bi bi-person input-icon"></i>
-                    <input type="email" name="email" class="form-control" placeholder="Nhập email..." value="{{ old('email') }}" required>
+                    <input type="email" name="email" class="form-control" placeholder="Nhập email..."
+                        value="{{ old('email') }}" required>
                 </div>
             </div>
             <div class="mb-3 delay-3">

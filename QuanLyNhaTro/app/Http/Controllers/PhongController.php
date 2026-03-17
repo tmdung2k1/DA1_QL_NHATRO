@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hopdong;
 use App\Models\Loaiphong;
 use App\Models\Phong;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class PhongController extends Controller
@@ -71,7 +73,37 @@ class PhongController extends Controller
     //xoa phong
     public function destroy($id)
     {
-        Phong::destroy($id);
+        $phong = Phong::find($id);
+
+        if (!$phong) {
+            return redirect()->route('phong.index')
+                ->with('error', 'Không tìm thấy phòng cần xóa.');
+        }
+
+        // Không cho xóa khi phòng đang có hợp đồng hiệu lực.
+        $coHopDongDangThue = Hopdong::where('Ma_phong', $id)
+            ->where('Trang_thai', 1)
+            ->exists();
+
+        if ($coHopDongDangThue) {
+            return redirect()->route('phong.index')
+                ->with('error', 'Không thể xóa phòng vì hiện đang có người thuê. Vui lòng thanh lý hợp đồng trước.');
+        }
+
+        // Có lịch sử hợp đồng cũng không thể xóa do ràng buộc khóa ngoại.
+        $coLichSuHopDong = Hopdong::where('Ma_phong', $id)->exists();
+        if ($coLichSuHopDong) {
+            return redirect()->route('phong.index')
+                ->with('error', 'Không thể xóa phòng vì đã phát sinh hợp đồng liên quan.');
+        }
+
+        try {
+            $phong->delete();
+        } catch (QueryException $e) {
+            return redirect()->route('phong.index')
+                ->with('error', 'Không thể xóa phòng do dữ liệu đang được sử dụng ở nơi khác.');
+        }
+
         return redirect()->route('phong.index')
             ->with('thongbao', 'Xóa phòng thành công');
     }

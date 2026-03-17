@@ -32,7 +32,7 @@ class CauhinhController extends Controller
                 'gia_nuoc' => $request->gia_nuoc,
             ]);
         } else {
-            //Trường hợp lỡ bảng cấu hình bị rỗng\
+            // Trường hợp bảng cấu hình rỗng, tạo bản ghi mặc định đầu tiên.
             Cauhinh::create([
                 'ten_nha_tro' => $request->ten_nha_tro,
                 'gia_dien' => $request->gia_dien,
